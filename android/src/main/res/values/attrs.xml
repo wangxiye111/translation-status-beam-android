@@ -1,0 +1,12 @@
+<resources>
+    <declare-styleable name="TranslationStatusView">
+        <attr name="beamActive" format="boolean" />
+        <attr name="beamStrength" format="float" />
+        <attr name="beamDurationMs" format="integer" />
+        <attr name="beamEnabled" format="boolean" />
+        <attr name="beamVariant">
+            <enum name="ocean" value="0" />
+            <enum name="mono" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
