@@ -29,6 +29,7 @@ class LargeOceanBeamSpecTest {
     fun whiteThemeUsesASolidSurfaceAndReadableForeground() {
         assertEquals(0xFFFFFFFF.toInt(), LargeOceanBeamSpec.baseColor)
         assertEquals(0xFF1D1D1D.toInt(), LargeOceanBeamSpec.labelColor)
+        assertEquals(4f, LargeOceanBeamSpec.strokeWidthPx, 0f)
         assertEquals(0.26f, LargeOceanBeamSpec.strokeOpacity, 0f)
         assertEquals(0.42f, LargeOceanBeamSpec.innerOpacity, 0f)
         assertEquals(0.24f, LargeOceanBeamSpec.bloomOpacity, 0f)

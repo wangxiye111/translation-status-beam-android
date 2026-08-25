@@ -10,6 +10,7 @@ same hue phase. The current HMI tuning is:
 - motion cycle: 1960 ms
 - color cycle: 2000 ms
 - hue range: 50°
+- stroke width: 4 px
 - stroke/Bloom saturation: 8
 - inner-fill saturation: 12
 - white solid capsule surface with dark foreground text

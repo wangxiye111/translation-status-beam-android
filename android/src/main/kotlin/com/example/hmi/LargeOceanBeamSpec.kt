@@ -27,6 +27,7 @@ object LargeOceanBeamSpec {
     const val baseColor: Int = 0xFFFFFFFF.toInt()
     const val labelColor: Int = 0xFF1D1D1D.toInt()
     const val strokeOpacity: Float = 0.26f
+    const val strokeWidthPx: Float = 4f
     const val innerOpacity: Float = 0.42f
     const val bloomOpacity: Float = 0.24f
     const val innerShadowAlpha: Float = 0.16f

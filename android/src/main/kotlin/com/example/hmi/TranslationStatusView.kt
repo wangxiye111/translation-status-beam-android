@@ -82,7 +82,7 @@ class TranslationStatusView @JvmOverloads constructor(
     }
     private val innerShadowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = CORE_STROKE_WIDTH_PX
+        strokeWidth = LargeOceanBeamSpec.strokeWidthPx
         color = Color.argb(
             (LargeOceanBeamSpec.innerShadowAlpha * 255f).toInt(),
             (LargeOceanBeamSpec.innerShadowColor shr 16) and 0xFF,
@@ -96,7 +96,7 @@ class TranslationStatusView @JvmOverloads constructor(
     }
     private val bloomPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = CORE_STROKE_WIDTH_PX
+        strokeWidth = LargeOceanBeamSpec.strokeWidthPx
         isDither = true
         maskFilter = BlurMaskFilter(
             LargeOceanBeamSpec.bloomBlurPx,
@@ -194,7 +194,9 @@ class TranslationStatusView @JvmOverloads constructor(
         super.onSizeChanged(width, height, oldWidth, oldHeight)
         if (width <= 0 || height <= 0) return
 
-        val strokeInset = CORE_STROKE_WIDTH_PX / 2f
+        // Keep the outer capsule at the requested 174×64 bounds. The ring
+        // itself is carved inward by the full 4 px stroke width.
+        val strokeInset = 0f
         capsuleBounds.set(
             strokeInset,
             strokeInset,
@@ -202,12 +204,12 @@ class TranslationStatusView @JvmOverloads constructor(
             height.toFloat() - strokeInset,
         )
         innerBounds.set(
-            capsuleBounds.left + CORE_STROKE_WIDTH_PX,
-            capsuleBounds.top + CORE_STROKE_WIDTH_PX,
-            capsuleBounds.right - CORE_STROKE_WIDTH_PX,
-            capsuleBounds.bottom - CORE_STROKE_WIDTH_PX,
+            capsuleBounds.left + LargeOceanBeamSpec.strokeWidthPx,
+            capsuleBounds.top + LargeOceanBeamSpec.strokeWidthPx,
+            capsuleBounds.right - LargeOceanBeamSpec.strokeWidthPx,
+            capsuleBounds.bottom - LargeOceanBeamSpec.strokeWidthPx,
         )
-        capsuleRadius = (height / 2f - strokeInset).coerceAtLeast(0f)
+        capsuleRadius = (height / 2f).coerceAtLeast(0f)
 
         capsulePath.reset()
         capsulePath.addRoundRect(
@@ -225,7 +227,9 @@ class TranslationStatusView @JvmOverloads constructor(
             capsuleRadius,
             Path.Direction.CW,
         )
-        val innerRadius = (capsuleRadius - CORE_STROKE_WIDTH_PX).coerceAtLeast(0f)
+        val innerRadius = (
+            capsuleRadius - LargeOceanBeamSpec.strokeWidthPx
+            ).coerceAtLeast(0f)
         ringPath.addRoundRect(
             innerBounds,
             innerRadius,
@@ -590,14 +594,15 @@ class TranslationStatusView @JvmOverloads constructor(
         innerShadowPaint.alpha = (
             LargeOceanBeamSpec.innerShadowAlpha * beamState.strength * beamOpacity * 255f
             ).toInt().coerceIn(0, 255)
-        val innerRadius = (capsuleRadius - CORE_STROKE_WIDTH_PX).coerceAtLeast(0f)
+        val innerRadius = (
+            capsuleRadius - LargeOceanBeamSpec.strokeWidthPx
+            ).coerceAtLeast(0f)
         canvas.drawRoundRect(innerBounds, innerRadius, innerRadius, innerShadowPaint)
     }
 
     companion object {
         private const val BEAM_VARIANT_OCEAN = 0
         private const val BEAM_VARIANT_MONO = 1
-        private const val CORE_STROKE_WIDTH_PX = 1f
         private const val FADE_DURATION_MS = 180L
         private const val SOURCE_SWEEP_START_OFFSET_DEGREES = 90f
 

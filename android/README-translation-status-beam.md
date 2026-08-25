@@ -19,6 +19,9 @@ source order: inner layer → stroke ring → bloom layer, with a solid white
 surface and dark foreground for the HMI presentation. It uses Canvas bitmap
 layers instead of React Native or WebView.
 
+The current HMI stroke width is 4 physical px. The inner fill starts at the
+inside edge of this ring and uses the same Ocean palette as the stroke.
+
 For the white HMI adaptation, the source 28 px inner-edge mask is replaced by
 a 2 px feather. This keeps the moving inner gradient visually attached to the
 moving border instead of creating a white gap between them.
